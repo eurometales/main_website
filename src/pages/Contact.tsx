@@ -77,7 +77,7 @@ const Contact = () => {
         <title>Contacto - Pide tu Presupuesto | Eurometales</title>
         <meta
           name="description"
-          content="Contacta con Eurometales para solicitar presupuesto de hierro, acero y metales. Teléfono: 613 003 101. Respondemos en menos de 24 horas. Madrid, España."
+          content="Contacta con Eurometales para solicitar presupuesto de hierro, acero y metales. Teléfono: 613 003 101. Servicio en toda España. Respondemos en menos de 24 horas."
         />
         <link rel="canonical" href={`${siteConfig.url}/contacto`} />
         <meta property="og:title" content="Contacto - Pide tu Presupuesto | Eurometales" />

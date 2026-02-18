@@ -12,7 +12,7 @@ const Footer = () => {
           <div>
             <img src={logo} alt="Eurometales" className="h-10 w-auto mb-4" />
             <p className="text-secondary-foreground/70 text-sm leading-relaxed max-w-xs">
-              Distribuidores de hierro, acero y metales en Madrid. Calidad, experiencia
+              Distribuidores de hierro, acero y metales en toda España. Calidad, experiencia
               y servicio profesional para tu proyecto.
             </p>
           </div>

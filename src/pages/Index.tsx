@@ -65,7 +65,7 @@ const whyUs = [
   {
     icon: Truck,
     title: "Entrega Rápida",
-    desc: "Servicio de entrega en toda la Comunidad de Madrid y envíos a nivel nacional.",
+    desc: "Servicio de entrega en toda España. Envíos rápidos y seguros a cualquier punto de la península.",
   },
   {
     icon: Award,
@@ -110,7 +110,7 @@ const Index = () => {
             >
               Tu proveedor de{" "}
               <span className="text-gradient">hierro y acero</span>{" "}
-              en Madrid
+              en toda España
             </motion.h1>
             <motion.p
               variants={fadeUp}
