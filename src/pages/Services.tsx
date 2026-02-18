@@ -37,12 +37,17 @@ const Services = () => {
         />
         <meta property="og:url" content={`${siteConfig.url}/servicios`} />
         <meta property="og:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+        <meta property="og:image:width" content={String(siteConfig.ogImageWidth)} />
+        <meta property="og:image:height" content={String(siteConfig.ogImageHeight)} />
+        <meta property="og:image:alt" content={siteConfig.ogImageAlt} />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Servicios de Transformación y Corte de Metal | Eurometales" />
         <meta
           name="twitter:description"
           content="Servicios de corte, taladro, fresado, granallado, pintado, cizalla y plegado de acero y metales."
         />
         <meta name="twitter:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+        <meta name="twitter:image:alt" content={siteConfig.ogImageAlt} />
       </Helmet>
       <SchemaOrg
         type="LocalBusiness"

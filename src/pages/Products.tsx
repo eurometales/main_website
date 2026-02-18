@@ -55,12 +55,17 @@ const Products = () => {
         />
         <meta property="og:url" content={`${siteConfig.url}/productos`} />
         <meta property="og:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+        <meta property="og:image:width" content={String(siteConfig.ogImageWidth)} />
+        <meta property="og:image:height" content={String(siteConfig.ogImageHeight)} />
+        <meta property="og:image:alt" content={siteConfig.ogImageAlt} />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Catálogo de Productos de Hierro y Acero | Eurometales" />
         <meta
           name="twitter:description"
           content="Catálogo completo de productos de hierro, acero y metales. Perfiles estructurales, chapas, tubos, corrugado, aceros especiales e inoxidable."
         />
         <meta name="twitter:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+        <meta name="twitter:image:alt" content={siteConfig.ogImageAlt} />
       </Helmet>
       <SchemaOrg
         type="LocalBusiness"

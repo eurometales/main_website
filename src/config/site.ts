@@ -5,6 +5,12 @@ export const siteConfig = {
     "Distribuidores de hierro, acero y metales en España. Perfiles, chapas, tubos, corrugado, aceros especiales y más. Pide tu presupuesto sin compromiso.",
   url: "https://eurometales.com",
   ogImage: "/og-image.jpg",
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageAlt: "Eurometales - Distribuidores de hierro, acero y metales en España",
+  /** Logo para Schema.org (recomendado cuadrado o ancho conocido). Si no existe, usar og-image. */
+  logo: "/og-image.jpg",
+  themeColor: "#0f172a",
   keywords: [
     "hierro España",
     "acero España",

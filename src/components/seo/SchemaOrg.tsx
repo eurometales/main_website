@@ -11,7 +11,7 @@ export const SchemaOrg = ({ type = "Organization", breadcrumbs }: SchemaOrgProps
     "@type": type,
     name: "Eurometales S.L.",
     url: siteConfig.url,
-    logo: `${siteConfig.url}/favicon.png`,
+    logo: `${siteConfig.url}${siteConfig.logo}`,
     description: siteConfig.description,
     address: {
       "@type": "PostalAddress",

@@ -85,9 +85,14 @@ const Index = () => {
         <meta property="og:description" content={siteConfig.description} />
         <meta property="og:url" content={`${siteConfig.url}/`} />
         <meta property="og:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+        <meta property="og:image:width" content={String(siteConfig.ogImageWidth)} />
+        <meta property="og:image:height" content={String(siteConfig.ogImageHeight)} />
+        <meta property="og:image:alt" content={siteConfig.ogImageAlt} />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={siteConfig.title} />
         <meta name="twitter:description" content={siteConfig.description} />
         <meta name="twitter:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+        <meta name="twitter:image:alt" content={siteConfig.ogImageAlt} />
       </Helmet>
       <SchemaOrg type="LocalBusiness" />
       {/* Hero */}

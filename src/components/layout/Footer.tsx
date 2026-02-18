@@ -2,6 +2,20 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import logo from "@/assets/logo-eurometales.png";
+import { useCookieConsent } from "@/contexts/CookieConsentContext";
+
+function CookiePreferencesLink() {
+  const { openPreferences } = useCookieConsent();
+  return (
+    <button
+      type="button"
+      onClick={openPreferences}
+      className="text-left text-sm text-secondary-foreground/70 hover:text-primary transition-colors"
+    >
+      Preferencias de cookies
+    </button>
+  );
+}
 
 const Footer = () => {
   return (
@@ -36,6 +50,7 @@ const Footer = () => {
               >
                 Pide tu presupuesto
               </Link>
+              <CookiePreferencesLink />
             </nav>
           </div>
 
