@@ -229,7 +229,7 @@ const Contact = () => {
                   >
                     <Phone className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-heading font-bold text-sm mb-1">Teléfono</h3>
+                      <h3 className="font-heading font-bold text-sm mb-1">Teléfono y WhatsApp</h3>
                       <p className="text-sm text-muted-foreground">{phone}</p>
                     </div>
                   </a>

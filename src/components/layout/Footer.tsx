@@ -47,6 +47,7 @@ const Footer = () => {
                 <MapPin className="h-4 w-4 text-primary flex-shrink-0" />
                 {siteConfig.contact.address}
               </div>
+              <span className="text-secondary-foreground/90 font-medium">Teléfono y WhatsApp</span>
               {siteConfig.contact.phones.map((phone) => (
                 <a
                   key={phone}
