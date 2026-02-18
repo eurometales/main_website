@@ -4,26 +4,69 @@ import { Phone, Mail, MapPin, Send, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Layout from "@/components/layout/Layout";
 import { siteConfig } from "@/config/site";
+import { contactWebhookUrl } from "@/config/webhook";
 import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [reason, setReason] = useState<string>("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (!reason) {
+      toast({
+        title: "Campo requerido",
+        description: "Por favor, selecciona un motivo.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const form = e.target as HTMLFormElement;
+    const payload = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      company: (form.elements.namedItem("company") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+      reason: reason,
+      subject: (form.elements.namedItem("subject") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+
     setLoading(true);
-    // Simulación - en el futuro conectará con Supabase
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const res = await fetch(contactWebhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("Error al enviar");
       toast({
         title: "Mensaje enviado",
         description: "Nos pondremos en contacto contigo lo antes posible.",
       });
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
+      form.reset();
+      setReason("");
+    } catch {
+      toast({
+        title: "Error al enviar",
+        description: "No se pudo enviar el mensaje. Inténtalo de nuevo o contáctanos por teléfono.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -87,6 +130,20 @@ const Contact = () => {
                     </label>
                     <Input id="phone" name="phone" type="tel" placeholder="Tu teléfono" />
                   </div>
+                </div>
+                <div>
+                  <label htmlFor="reason" className="block text-sm font-semibold mb-1.5">
+                    Motivo *
+                  </label>
+                  <Select value={reason} onValueChange={setReason}>
+                    <SelectTrigger id="reason" name="reason">
+                      <SelectValue placeholder="Selecciona un motivo" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Presupuesto">Presupuesto</SelectItem>
+                      <SelectItem value="Otros">Otros</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div>
                   <label htmlFor="subject" className="block text-sm font-semibold mb-1.5">
