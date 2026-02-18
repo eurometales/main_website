@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronRight, ArrowRight, Wrench, SlidersHorizontal, X } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
+import { siteConfig } from "@/config/site";
 import { images } from "@/config/images";
 import { productSections, type ProductSection, type Category, type SubCategory } from "@/data/products";
 import ProductSearch from "@/components/products/ProductSearch";
 import { extrasToServiceIds } from "@/data/services";
+import { SchemaOrg } from "@/components/seo/SchemaOrg";
 
 const Products = () => {
   const location = useLocation();
@@ -24,6 +27,34 @@ const Products = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>Catálogo de Productos de Hierro y Acero | Eurometales</title>
+        <meta
+          name="description"
+          content="Catálogo completo de productos de hierro, acero y metales. Perfiles estructurales, chapas, tubos, corrugado, aceros especiales e inoxidable. Calidad certificada según normativas europeas."
+        />
+        <link rel="canonical" href={`${siteConfig.url}/productos`} />
+        <meta property="og:title" content="Catálogo de Productos de Hierro y Acero | Eurometales" />
+        <meta
+          property="og:description"
+          content="Catálogo completo de productos de hierro, acero y metales. Perfiles estructurales, chapas, tubos, corrugado, aceros especiales e inoxidable."
+        />
+        <meta property="og:url" content={`${siteConfig.url}/productos`} />
+        <meta property="og:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+        <meta name="twitter:title" content="Catálogo de Productos de Hierro y Acero | Eurometales" />
+        <meta
+          name="twitter:description"
+          content="Catálogo completo de productos de hierro, acero y metales. Perfiles estructurales, chapas, tubos, corrugado, aceros especiales e inoxidable."
+        />
+        <meta name="twitter:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+      </Helmet>
+      <SchemaOrg
+        type="LocalBusiness"
+        breadcrumbs={[
+          { name: "Inicio", url: "/" },
+          { name: "Productos", url: "/productos" },
+        ]}
+      />
       {/* Header */}
       <section className="gradient-dark py-16">
         <div className="section-container">

@@ -5,7 +5,9 @@ import { ArrowRight, Wrench, ChevronRight } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
+import { siteConfig } from "@/config/site";
 import { services } from "@/data/services";
+import { SchemaOrg } from "@/components/seo/SchemaOrg";
 
 const Services = () => {
   const location = useLocation();
@@ -27,7 +29,28 @@ const Services = () => {
           name="description"
           content="Servicios de corte, taladro, fresado, granallado, pintado, cizalla y plegado de acero y metales. Transformamos los productos a medida del cliente."
         />
+        <link rel="canonical" href={`${siteConfig.url}/servicios`} />
+        <meta property="og:title" content="Servicios de Transformación y Corte de Metal | Eurometales" />
+        <meta
+          property="og:description"
+          content="Servicios de corte, taladro, fresado, granallado, pintado, cizalla y plegado de acero y metales. Transformamos los productos a medida del cliente."
+        />
+        <meta property="og:url" content={`${siteConfig.url}/servicios`} />
+        <meta property="og:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+        <meta name="twitter:title" content="Servicios de Transformación y Corte de Metal | Eurometales" />
+        <meta
+          name="twitter:description"
+          content="Servicios de corte, taladro, fresado, granallado, pintado, cizalla y plegado de acero y metales."
+        />
+        <meta name="twitter:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
       </Helmet>
+      <SchemaOrg
+        type="LocalBusiness"
+        breadcrumbs={[
+          { name: "Inicio", url: "/" },
+          { name: "Servicios", url: "/servicios" },
+        ]}
+      />
 
       {/* Header */}
       <section className="gradient-dark py-16">

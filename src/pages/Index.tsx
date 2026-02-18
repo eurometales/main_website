@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Shield, Truck, Award, Phone } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import { siteConfig } from "@/config/site";
 import { images } from "@/config/images";
+import { SchemaOrg } from "@/components/seo/SchemaOrg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -75,6 +77,19 @@ const whyUs = [
 const Index = () => {
   return (
     <Layout>
+      <Helmet>
+        <title>{siteConfig.title}</title>
+        <meta name="description" content={siteConfig.description} />
+        <link rel="canonical" href={`${siteConfig.url}/`} />
+        <meta property="og:title" content={siteConfig.title} />
+        <meta property="og:description" content={siteConfig.description} />
+        <meta property="og:url" content={`${siteConfig.url}/`} />
+        <meta property="og:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+        <meta name="twitter:title" content={siteConfig.title} />
+        <meta name="twitter:description" content={siteConfig.description} />
+        <meta name="twitter:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+      </Helmet>
+      <SchemaOrg type="LocalBusiness" />
       {/* Hero */}
       <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         <div

@@ -1,6 +1,7 @@
 import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Send, Clock } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,6 +16,7 @@ import Layout from "@/components/layout/Layout";
 import { siteConfig } from "@/config/site";
 import { contactWebhookUrl } from "@/config/webhook";
 import { useToast } from "@/hooks/use-toast";
+import { SchemaOrg } from "@/components/seo/SchemaOrg";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -71,6 +73,34 @@ const Contact = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>Contacto - Pide tu Presupuesto | Eurometales</title>
+        <meta
+          name="description"
+          content="Contacta con Eurometales para solicitar presupuesto de hierro, acero y metales. Teléfono: 613 003 101. Respondemos en menos de 24 horas. Madrid, España."
+        />
+        <link rel="canonical" href={`${siteConfig.url}/contacto`} />
+        <meta property="og:title" content="Contacto - Pide tu Presupuesto | Eurometales" />
+        <meta
+          property="og:description"
+          content="Contacta con Eurometales para solicitar presupuesto de hierro, acero y metales. Respondemos en menos de 24 horas."
+        />
+        <meta property="og:url" content={`${siteConfig.url}/contacto`} />
+        <meta property="og:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+        <meta name="twitter:title" content="Contacto - Pide tu Presupuesto | Eurometales" />
+        <meta
+          name="twitter:description"
+          content="Contacta con Eurometales para solicitar presupuesto de hierro, acero y metales. Respondemos en menos de 24 horas."
+        />
+        <meta name="twitter:image" content={`${siteConfig.url}${siteConfig.ogImage}`} />
+      </Helmet>
+      <SchemaOrg
+        type="LocalBusiness"
+        breadcrumbs={[
+          { name: "Inicio", url: "/" },
+          { name: "Contacto", url: "/contacto" },
+        ]}
+      />
       {/* Header */}
       <section className="gradient-dark py-20">
         <div className="section-container">
