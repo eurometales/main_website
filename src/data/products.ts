@@ -326,7 +326,7 @@ export const productSections: ProductSection[] = [
         description: "Aleación con mínimo 10,5% de cromo. Acabados bruto 2B, satinado y pulido con PVC.",
         imageKey: "img-cat-acero_inoxidable",
         subcategories: [
-          { id: "chapa-inox", name: "Chapa inoxidable", description: "Formatos 2000×1000 mm y 3000×1500 mm. Espesores de 1 a 3 mm.", extras: "Corte | Cizalla | Plegado" },
+          { id: "chapa-inox", name: "Chapa inoxidable", description: "Formatos 2000×1000 mm y 3000×1500 mm. Espesores de 1 a 3 mm.", extras: "Corte | Cizalla y Plegado" },
         ],
       },
     ],
