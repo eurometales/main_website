@@ -12,9 +12,12 @@ import ProductSearch from "@/components/products/ProductSearch";
 import { extrasToServiceIds } from "@/data/services";
 import { SchemaOrg } from "@/components/seo/SchemaOrg";
 
+type LightboxState = { src: string; alt: string } | null;
+
 const Products = () => {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [lightbox, setLightbox] = useState<LightboxState>(null);
 
   useEffect(() => {
     if (location.hash) {
@@ -24,6 +27,17 @@ const Products = () => {
       }
     }
   }, [location.hash]);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    const onEscape = (e: KeyboardEvent) => e.key === "Escape" && setLightbox(null);
+    document.addEventListener("keydown", onEscape);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onEscape);
+      document.body.style.overflow = "";
+    };
+  }, [lightbox]);
 
   return (
     <Layout>
@@ -137,11 +151,41 @@ const Products = () => {
           {/* Product sections */}
           <div className="flex-1 min-w-0">
             {productSections.map((section) => (
-              <SectionBlock key={section.id} section={section} />
+              <SectionBlock
+                key={section.id}
+                section={section}
+                onImageClick={(src, alt) => setLightbox({ src, alt })}
+              />
             ))}
           </div>
         </div>
       </div>
+
+      {/* Lightbox: tocar imagen en móvil para ampliar */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
+          onClick={() => setLightbox(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Vista ampliada de imagen"
+        >
+          <button
+            type="button"
+            onClick={() => setLightbox(null)}
+            className="absolute top-4 right-4 z-10 rounded-full p-2 text-white hover:bg-white/20 focus:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white"
+            aria-label="Cerrar"
+          >
+            <X className="h-6 w-6" />
+          </button>
+          <img
+            src={lightbox.src}
+            alt={lightbox.alt}
+            className="max-w-full max-h-[calc(100vh-2rem)] object-contain"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
 
       {/* CTA */}
       <section className="py-16 gradient-dark">
@@ -163,7 +207,13 @@ const Products = () => {
   );
 };
 
-const SectionBlock = ({ section }: { section: ProductSection }) => {
+const SectionBlock = ({
+  section,
+  onImageClick,
+}: {
+  section: ProductSection;
+  onImageClick: (src: string, alt: string) => void;
+}) => {
   const img = section.imageKey ? images.products[section.imageKey] : null;
 
   return (
@@ -172,12 +222,21 @@ const SectionBlock = ({ section }: { section: ProductSection }) => {
         {/* Section header */}
         <div className="flex flex-col sm:flex-row items-start gap-6 mb-8">
           {img && (
-            <img
-              src={img}
-              alt={section.name}
-              className="w-full sm:w-48 h-36 object-cover rounded-lg shadow-md"
-              loading="lazy"
-            />
+            <div
+              className="w-full sm:w-48 h-36 rounded-lg shadow-md overflow-hidden flex-shrink-0 cursor-pointer lg:cursor-default"
+              onClick={() => onImageClick(img, section.name)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && onImageClick(img, section.name)}
+              aria-label={`Ampliar imagen de ${section.name}`}
+            >
+              <img
+                src={img}
+                alt={section.name}
+                className="w-full h-full object-cover transition-transform duration-300 ease-out lg:hover:scale-110"
+                loading="lazy"
+              />
+            </div>
           )}
           <div>
             <h2 className="text-3xl font-heading font-black mb-2">
@@ -190,7 +249,11 @@ const SectionBlock = ({ section }: { section: ProductSection }) => {
         {/* Categories */}
         <div className="space-y-8">
           {section.categories.map((cat) => (
-            <CategoryBlock key={cat.id} category={cat} />
+            <CategoryBlock
+              key={cat.id}
+              category={cat}
+              onImageClick={onImageClick}
+            />
           ))}
         </div>
       </div>
@@ -198,7 +261,13 @@ const SectionBlock = ({ section }: { section: ProductSection }) => {
   );
 };
 
-const CategoryBlock = ({ category }: { category: Category }) => {
+const CategoryBlock = ({
+  category,
+  onImageClick,
+}: {
+  category: Category;
+  onImageClick: (src: string, alt: string) => void;
+}) => {
   const [expanded, setExpanded] = useState(false);
   const img = category.imageKey ? images.products[category.imageKey] : null;
   const showAll = expanded || category.subcategories.length <= 4;
@@ -210,12 +279,21 @@ const CategoryBlock = ({ category }: { category: Category }) => {
         <div className="p-5 md:p-6">
           <div className="flex items-start gap-4 mb-4">
             {img && (
-              <img
-                src={img}
-                alt={category.name}
-                className="w-16 h-16 object-cover rounded-md flex-shrink-0 hidden sm:block"
-                loading="lazy"
-              />
+              <div
+                className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0 hidden sm:block cursor-pointer lg:cursor-default"
+                onClick={() => onImageClick(img, category.name)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === "Enter" && onImageClick(img, category.name)}
+                aria-label={`Ampliar imagen de ${category.name}`}
+              >
+                <img
+                  src={img}
+                  alt={category.name}
+                  className="w-full h-full object-cover transition-transform duration-300 ease-out lg:hover:scale-110"
+                  loading="lazy"
+                />
+              </div>
             )}
             <div>
               <h3 className="text-xl font-heading font-bold mb-1">{category.name}</h3>
@@ -225,7 +303,11 @@ const CategoryBlock = ({ category }: { category: Category }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
             {visibleSubs.map((sub) => (
-              <SubCategoryCard key={sub.id} sub={sub} />
+              <SubCategoryCard
+                key={sub.id}
+                sub={sub}
+                onImageClick={onImageClick}
+              />
             ))}
           </div>
 
@@ -244,7 +326,13 @@ const CategoryBlock = ({ category }: { category: Category }) => {
   );
 };
 
-const SubCategoryCard = ({ sub }: { sub: SubCategory }) => {
+const SubCategoryCard = ({
+  sub,
+  onImageClick,
+}: {
+  sub: SubCategory;
+  onImageClick: (src: string, alt: string) => void;
+}) => {
   const [open, setOpen] = useState(false);
   const img = sub.imageKey ? images.products[sub.imageKey] : null;
 
@@ -255,12 +343,27 @@ const SubCategoryCard = ({ sub }: { sub: SubCategory }) => {
         onClick={() => sub.items?.length && setOpen(!open)}
       >
         {img && (
-          <img
-            src={img}
-            alt={sub.name}
-            className="w-12 h-12 object-cover rounded flex-shrink-0"
-            loading="lazy"
-          />
+          <div
+            className="w-12 h-12 rounded overflow-hidden flex-shrink-0 cursor-pointer lg:cursor-default shrink-0"
+            onClick={(e) => {
+              e.stopPropagation();
+              onImageClick(img, sub.name);
+            }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              e.stopPropagation();
+              if (e.key === "Enter") onImageClick(img, sub.name);
+            }}
+            aria-label={`Ampliar imagen de ${sub.name}`}
+          >
+            <img
+              src={img}
+              alt={sub.name}
+              className="w-full h-full object-cover transition-transform duration-300 ease-out lg:hover:scale-110"
+              loading="lazy"
+            />
+          </div>
         )}
         <div className="flex-1 min-w-0">
           <h4 className="font-heading font-bold text-sm mb-1">{sub.name}</h4>
