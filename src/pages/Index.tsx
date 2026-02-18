@@ -108,17 +108,14 @@ const Index = () => {
               custom={0}
               className="text-4xl md:text-6xl font-heading font-black text-primary-foreground leading-tight mb-6"
             >
-              Tu proveedor de{" "}
-              <span className="text-gradient">hierro y acero</span>{" "}
-              en toda España
+              <span className="text-gradient">PROVEEDOR NACIONAL</span> DE HIERRO Y ACERO
             </motion.h1>
             <motion.p
               variants={fadeUp}
               custom={1}
               className="text-lg md:text-xl text-primary-foreground/80 mb-8 leading-relaxed"
             >
-              Distribuidores de perfiles, chapas, tubos, corrugado y aceros especiales.
-              Calidad, stock permanente y servicio de corte a medida.
+              Amplia gama en stock y servicios de procesado a medida
             </motion.p>
             <motion.div
               variants={fadeUp}

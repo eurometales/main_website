@@ -216,7 +216,7 @@ const Contact = () => {
                   <div>
                     <h3 className="font-heading font-bold text-sm mb-1">Ubicación</h3>
                     <p className="text-sm text-muted-foreground">
-                      {siteConfig.contact.address}
+                      Oficina central (Madrid, España) · Servicio a nivel nacional
                     </p>
                   </div>
                 </div>
@@ -253,10 +253,7 @@ const Contact = () => {
                   <div>
                     <h3 className="font-heading font-bold text-sm mb-1">Horario</h3>
                     <p className="text-sm text-muted-foreground">
-                      Lunes a Viernes: 8:00 - 18:00
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Sábados: 8:00 - 14:00
+                      Lunes a Viernes: 9:00 - 19:00
                     </p>
                   </div>
                 </div>
