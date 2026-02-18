@@ -49,6 +49,7 @@ export const productSections: ProductSection[] = [
         id: "largos",
         name: "Largos",
         description: "Perfiles estructurales, comerciales y laminados en frío.",
+        imageKey: "img-00",
         subcategories: [
           {
             id: "perfil-estructural",
