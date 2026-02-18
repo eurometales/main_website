@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ChevronRight, ArrowRight, Wrench } from "lucide-react";
+import { ChevronRight, ArrowRight, Wrench, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import { images } from "@/config/images";
 import { productSections, type ProductSection, type Category, type SubCategory } from "@/data/products";
+import ProductSearch from "@/components/products/ProductSearch";
 
 const Products = () => {
   const location = useLocation();
-  const [activeSection, setActiveSection] = useState<string | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (location.hash) {
@@ -41,31 +41,74 @@ const Products = () => {
         </div>
       </section>
 
-      {/* Quick Nav */}
-      <section className="sticky top-16 md:top-20 z-40 bg-background border-b border-border shadow-sm">
-        <div className="section-container">
-          <div className="flex items-center gap-4 py-3 overflow-x-auto scrollbar-hide">
-            {productSections.map((section) => (
-              <a
-                key={section.id}
-                href={`#${section.id}`}
-                className="text-sm font-heading font-semibold whitespace-nowrap px-4 py-2 rounded-full border border-border hover:border-primary hover:text-primary transition-colors"
-              >
-                {section.name}
-              </a>
-            ))}
-            <Button asChild variant="cta" size="sm" className="ml-auto flex-shrink-0">
-              <Link to="/contacto">Pide presupuesto</Link>
-            </Button>
+      {/* Mobile search bar trigger */}
+      <div className="lg:hidden sticky top-16 z-40 bg-background border-b border-border shadow-sm">
+        <div className="section-container flex items-center gap-3 py-2">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg border border-border bg-background text-sm text-muted-foreground hover:border-primary hover:text-primary transition-colors flex-1"
+          >
+            <SlidersHorizontal className="h-4 w-4" />
+            Buscar producto…
+          </button>
+          <Button asChild variant="cta" size="sm" className="flex-shrink-0">
+            <Link to="/contacto">Presupuesto</Link>
+          </Button>
+        </div>
+      </div>
+
+      {/* Mobile sidebar overlay */}
+      {sidebarOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex">
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={() => setSidebarOpen(false)}
+          />
+          <div className="relative z-10 w-80 max-w-[90vw] bg-background h-full shadow-xl flex flex-col">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+              <span className="font-heading font-bold text-sm">Buscar productos</span>
+              <button onClick={() => setSidebarOpen(false)}>
+                <X className="h-5 w-5 text-muted-foreground" />
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-4">
+              <ProductSearch onResultClick={() => setSidebarOpen(false)} />
+            </div>
           </div>
         </div>
-      </section>
+      )}
 
-      {/* Product Sections */}
-      <div className="py-12">
-        {productSections.map((section) => (
-          <SectionBlock key={section.id} section={section} />
-        ))}
+      {/* Main layout: sidebar + content */}
+      <div className="section-container py-10">
+        <div className="flex gap-8 items-start">
+
+          {/* Desktop sidebar */}
+          <aside className="hidden lg:flex flex-col gap-6 w-64 flex-shrink-0 sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto pr-1">
+            <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
+              <h2 className="font-heading font-bold text-sm uppercase tracking-wider text-muted-foreground mb-3">
+                Buscar productos
+              </h2>
+              <ProductSearch />
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
+              <p className="text-sm font-semibold mb-2">¿Necesitas ayuda?</p>
+              <p className="text-xs text-muted-foreground mb-3">
+                Solicita tu presupuesto personalizado sin compromiso.
+              </p>
+              <Button asChild variant="cta" size="sm" className="w-full">
+                <Link to="/contacto">Pedir presupuesto</Link>
+              </Button>
+            </div>
+          </aside>
+
+          {/* Product sections */}
+          <div className="flex-1 min-w-0">
+            {productSections.map((section) => (
+              <SectionBlock key={section.id} section={section} />
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* CTA */}
@@ -92,20 +135,20 @@ const SectionBlock = ({ section }: { section: ProductSection }) => {
   const img = section.imageKey ? images.products[section.imageKey] : null;
 
   return (
-    <section id={section.id} className="mb-16 scroll-mt-40">
-      <div className="section-container">
+    <section id={section.id} className="mb-16 scroll-mt-28">
+      <div>
         {/* Section header */}
-        <div className="flex flex-col md:flex-row items-start gap-8 mb-10">
+        <div className="flex flex-col sm:flex-row items-start gap-6 mb-8">
           {img && (
             <img
               src={img}
               alt={section.name}
-              className="w-full md:w-64 h-48 object-cover rounded-lg shadow-md"
+              className="w-full sm:w-48 h-36 object-cover rounded-lg shadow-md"
               loading="lazy"
             />
           )}
           <div>
-            <h2 className="text-3xl font-heading font-black mb-3">
+            <h2 className="text-3xl font-heading font-black mb-2">
               <span className="text-gradient">{section.name}</span>
             </h2>
             <p className="text-muted-foreground leading-relaxed">{section.description}</p>
@@ -113,7 +156,7 @@ const SectionBlock = ({ section }: { section: ProductSection }) => {
         </div>
 
         {/* Categories */}
-        <div className="space-y-10">
+        <div className="space-y-8">
           {section.categories.map((cat) => (
             <CategoryBlock key={cat.id} category={cat} />
           ))}
@@ -130,26 +173,25 @@ const CategoryBlock = ({ category }: { category: Category }) => {
   const visibleSubs = showAll ? category.subcategories : category.subcategories.slice(0, 4);
 
   return (
-    <div id={category.id} className="scroll-mt-40">
+    <div id={category.id} className="scroll-mt-28">
       <div className="border border-border rounded-lg overflow-hidden bg-card">
-        <div className="p-6 md:p-8">
+        <div className="p-5 md:p-6">
           <div className="flex items-start gap-4 mb-4">
             {img && (
               <img
                 src={img}
                 alt={category.name}
-                className="w-20 h-20 object-cover rounded-md flex-shrink-0 hidden sm:block"
+                className="w-16 h-16 object-cover rounded-md flex-shrink-0 hidden sm:block"
                 loading="lazy"
               />
             )}
             <div>
-              <h3 className="text-2xl font-heading font-bold mb-2">{category.name}</h3>
+              <h3 className="text-xl font-heading font-bold mb-1">{category.name}</h3>
               <p className="text-sm text-muted-foreground">{category.description}</p>
             </div>
           </div>
 
-          {/* Subcategories */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
             {visibleSubs.map((sub) => (
               <SubCategoryCard key={sub.id} sub={sub} />
             ))}
@@ -175,7 +217,7 @@ const SubCategoryCard = ({ sub }: { sub: SubCategory }) => {
   const img = sub.imageKey ? images.products[sub.imageKey] : null;
 
   return (
-    <div className="border border-border rounded-md p-4 hover:border-primary/30 transition-colors bg-background">
+    <div id={sub.id} className="border border-border rounded-md p-4 hover:border-primary/30 transition-colors bg-background scroll-mt-28">
       <div
         className="flex items-start gap-3 cursor-pointer"
         onClick={() => setOpen(!open)}
@@ -184,7 +226,7 @@ const SubCategoryCard = ({ sub }: { sub: SubCategory }) => {
           <img
             src={img}
             alt={sub.name}
-            className="w-14 h-14 object-cover rounded flex-shrink-0"
+            className="w-12 h-12 object-cover rounded flex-shrink-0"
             loading="lazy"
           />
         )}
@@ -201,23 +243,22 @@ const SubCategoryCard = ({ sub }: { sub: SubCategory }) => {
 
       {open && (
         <div className="mt-4 space-y-3">
-          {sub.items &&
-            sub.items.map((item) => (
-              <div key={item.id} className="pl-4 border-l-2 border-primary/20">
-                <h5 className="font-semibold text-sm">{item.name}</h5>
-                <p className="text-xs text-muted-foreground">{item.description}</p>
-                {item.qualities && (
-                  <p className="text-xs mt-1">
-                    <span className="font-semibold">Calidades:</span> {item.qualities}
-                  </p>
-                )}
-                {item.lengths && (
-                  <p className="text-xs">
-                    <span className="font-semibold">Largos:</span> {item.lengths}
-                  </p>
-                )}
-              </div>
-            ))}
+          {sub.items?.map((item) => (
+            <div key={item.id} className="pl-4 border-l-2 border-primary/20">
+              <h5 className="font-semibold text-sm">{item.name}</h5>
+              <p className="text-xs text-muted-foreground">{item.description}</p>
+              {item.qualities && (
+                <p className="text-xs mt-1">
+                  <span className="font-semibold">Calidades:</span> {item.qualities}
+                </p>
+              )}
+              {item.lengths && (
+                <p className="text-xs">
+                  <span className="font-semibold">Largos:</span> {item.lengths}
+                </p>
+              )}
+            </div>
+          ))}
           {sub.extras && (
             <div className="flex items-center gap-2 text-xs text-primary font-semibold pt-2">
               <Wrench className="h-3 w-3" />
