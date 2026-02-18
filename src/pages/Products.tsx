@@ -7,6 +7,7 @@ import Layout from "@/components/layout/Layout";
 import { images } from "@/config/images";
 import { productSections, type ProductSection, type Category, type SubCategory } from "@/data/products";
 import ProductSearch from "@/components/products/ProductSearch";
+import { extrasToServiceIds } from "@/data/services";
 
 const Products = () => {
   const location = useLocation();
@@ -219,8 +220,8 @@ const SubCategoryCard = ({ sub }: { sub: SubCategory }) => {
   return (
     <div id={sub.id} className="border border-border rounded-md p-4 hover:border-primary/30 transition-colors bg-background scroll-mt-28">
       <div
-        className="flex items-start gap-3 cursor-pointer"
-        onClick={() => setOpen(!open)}
+        className={`flex items-start gap-3 ${sub.items?.length ? "cursor-pointer" : ""}`}
+        onClick={() => sub.items?.length && setOpen(!open)}
       >
         {img && (
           <img
@@ -234,16 +235,48 @@ const SubCategoryCard = ({ sub }: { sub: SubCategory }) => {
           <h4 className="font-heading font-bold text-sm mb-1">{sub.name}</h4>
           <p className="text-xs text-muted-foreground line-clamp-2">{sub.description}</p>
         </div>
-        <ChevronRight
-          className={`h-4 w-4 text-muted-foreground flex-shrink-0 mt-1 transition-transform ${
-            open ? "rotate-90" : ""
-          }`}
-        />
+        {sub.items?.length ? (
+          <ChevronRight
+            className={`h-4 w-4 text-muted-foreground flex-shrink-0 mt-1 transition-transform ${
+              open ? "rotate-90" : ""
+            }`}
+          />
+        ) : null}
       </div>
 
-      {open && (
+      {/* Services badges — always visible */}
+      {sub.extras && (
+        <div className="mt-3 pt-3 border-t border-border">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 flex items-center gap-1">
+            <Wrench className="h-3 w-3" /> Servicios disponibles
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {extrasToServiceIds(sub.extras).map(({ label, serviceId }) =>
+              serviceId ? (
+                <Link
+                  key={label}
+                  to={`/servicios#${serviceId}`}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-accent text-accent-foreground border border-primary/20 hover:border-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                >
+                  {label}
+                </Link>
+              ) : (
+                <span
+                  key={label}
+                  className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-muted text-muted-foreground border border-border"
+                >
+                  {label}
+                </span>
+              )
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Expandable items */}
+      {open && sub.items?.length && (
         <div className="mt-4 space-y-3">
-          {sub.items?.map((item) => (
+          {sub.items.map((item) => (
             <div key={item.id} className="pl-4 border-l-2 border-primary/20">
               <h5 className="font-semibold text-sm">{item.name}</h5>
               <p className="text-xs text-muted-foreground">{item.description}</p>
@@ -259,12 +292,6 @@ const SubCategoryCard = ({ sub }: { sub: SubCategory }) => {
               )}
             </div>
           ))}
-          {sub.extras && (
-            <div className="flex items-center gap-2 text-xs text-primary font-semibold pt-2">
-              <Wrench className="h-3 w-3" />
-              Servicios extra: {sub.extras}
-            </div>
-          )}
         </div>
       )}
     </div>
