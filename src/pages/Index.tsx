@@ -19,37 +19,37 @@ const productCategories = [
   {
     title: "Perfiles de Acero",
     desc: "Estructurales, comerciales y laminados en frío. IPN, IPE, HEA, HEB, UPN y más.",
-    image: images.products["img-01"],
+    image: images.landing.largos,
     href: "/productos#perfiles",
   },
   {
     title: "Chapas",
     desc: "Laminadas en caliente y frío, decapadas, estriadas, galvanizadas, corten y más.",
-    image: images.products["img-06"],
+    image: images.landing.planos,
     href: "/productos#chapas",
   },
   {
     title: "Tubos",
     desc: "Estructurales, de conducción, precisión, galvanizados y laminados en frío.",
-    image: images.products["img-18"],
+    image: images.landing.tubos,
     href: "/productos#tubos",
   },
   {
     title: "Corrugado y Mallazo",
     desc: "Acero corrugado, grafil, malla electrosoldada y armadura en celosía.",
-    image: images.products["img-26"],
+    image: images.landing.corrugado,
     href: "/productos#corrugado",
   },
   {
     title: "Aceros Especiales",
     desc: "Calibrados, aleados, al carbono, barra perforada, cromada e inoxidable.",
-    image: images.products["img-40"],
+    image: images.landing.aceros_especiales,
     href: "/productos#aceros-especiales",
   },
   {
     title: "Acero Inoxidable",
     desc: "Chapa inoxidable en distintos acabados, formatos y espesores.",
-    image: images.products["img-44"],
+    image: images.landing.acero_inoxidable,
     href: "/productos#acero-inoxidable",
   },
 ];
