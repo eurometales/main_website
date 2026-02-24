@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Shield, Truck, Award, Phone, TrendingDown, Package, Wrench } from "lucide-react";
@@ -7,6 +8,7 @@ import Layout from "@/components/layout/Layout";
 import { siteConfig } from "@/config/site";
 import { images } from "@/config/images";
 import { SchemaOrg } from "@/components/seo/SchemaOrg";
+import OfferModal from "@/components/OfferModal";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -75,8 +77,11 @@ const whyUs = [
 ];
 
 const Index = () => {
+  const [offerOpen, setOfferOpen] = useState(false);
+
   return (
     <Layout>
+      <OfferModal open={offerOpen} onOpenChange={setOfferOpen} />
       <Helmet>
         <title>{siteConfig.title}</title>
         <meta name="description" content={siteConfig.description} />
@@ -163,11 +168,9 @@ const Index = () => {
               <p className="text-sm text-muted-foreground mb-4">
                 Envíanos tu oferta y en pocas horas te confirmamos si podemos mejorarla.
               </p>
-              <Button asChild variant="default" size="sm">
-                <Link to="/contacto">
+              <Button variant="default" size="sm" onClick={() => setOfferOpen(true)}>
                   Enviar oferta
                   <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
               </Button>
               <p className="text-[10px] text-muted-foreground mt-3 leading-tight">
                 * Comparativa sobre oferta equivalente: misma calidad, medidas y entrega. Datos internos.
