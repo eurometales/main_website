@@ -62,15 +62,26 @@ const OfferModal = ({ open, onOpenChange }: OfferModalProps) => {
         method: "POST",
         body: formData,
       });
-      if (!res.ok) throw new Error("Error al enviar");
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("[Mejora de oferta] Webhook falló:", res.status, res.statusText, text);
+        throw new Error(`Error al enviar (${res.status})`);
+      }
       toast({
         title: "Oferta enviada",
         description: "Revisaremos tu oferta y te responderemos lo antes posible.",
       });
       form.reset();
       setFile(null);
+      if (fileRef.current) fileRef.current.value = "";
       onOpenChange(false);
-    } catch {
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "";
+      if (message.startsWith("Error al enviar (")) {
+        console.error("[Mejora de oferta] El servidor del webhook respondió con error. Revisa la consola para más detalles.");
+      } else {
+        console.error("[Mejora de oferta] Error de red o al enviar:", err);
+      }
       toast({
         title: "Error al enviar",
         description: "No se pudo enviar. Inténtalo de nuevo o contáctanos por teléfono.",
