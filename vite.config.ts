@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
       // Sustituye %VITE_GTM_ID% en index.html para que la etiqueta de Google se cargue en producción
       {
         name: "html-inject-gtm",
-        transformIndexHtml(html) {
+        transformIndexHtml(html: string) {
           return html.replace(/%VITE_GTM_ID%/g, gtmId);
         },
       },

@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Wrench, ChevronRight } from "lucide-react";
+import { ArrowRight, Wrench } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import Layout from "@/components/layout/Layout";
 import { siteConfig } from "@/config/site";
 import { services } from "@/data/services";
@@ -145,23 +146,25 @@ const Services = () => {
               </div>
 
               {/* Detail cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-0 md:ml-16">
-                {service.details.map((detail) => (
-                  <div
-                    key={detail.title}
-                    className="rounded-lg border border-border bg-card p-5 hover:border-primary/30 transition-colors"
-                  >
-                    <div className="flex items-start gap-2 mb-2">
-                      <ChevronRight className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <h3 className="font-heading font-bold text-sm">
+              <div className="ml-0 md:ml-16">
+                <Accordion type="multiple" className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {service.details.map((detail) => (
+                    <AccordionItem
+                      key={detail.title}
+                      value={detail.title}
+                      className="rounded-lg border border-border bg-card px-5 hover:border-primary/30 transition-colors"
+                    >
+                      <AccordionTrigger className="text-sm font-heading font-bold hover:no-underline">
                         {detail.title}
-                      </h3>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed pl-6">
-                      {detail.description}
-                    </p>
-                  </div>
-                ))}
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {detail.description}
+                        </p>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
 
               {/* Divider */}
