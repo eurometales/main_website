@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Shield, Truck, Award, Phone } from "lucide-react";
+import { ArrowRight, Shield, Truck, Award, Phone, TrendingDown, Package, Wrench } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
@@ -113,14 +113,14 @@ const Index = () => {
               custom={0}
               className="text-4xl md:text-6xl font-heading font-black text-primary-foreground leading-tight mb-6"
             >
-              <span className="text-gradient">PROVEEDOR NACIONAL</span> DE HIERRO Y ACERO
+              <span className="text-gradient">PROVEEDOR NACIONAL</span> DE HIERRO, ACERO Y ACERO INOXIDABLE
             </motion.h1>
             <motion.p
               variants={fadeUp}
               custom={1}
               className="text-lg md:text-xl text-primary-foreground/80 mb-8 leading-relaxed"
             >
-              Amplia gama en stock y servicios de procesado a medida
+              Amplia gama de productos con stock permanente y suministro inmediato en toda España.
             </motion.p>
             <motion.div
               variants={fadeUp}
@@ -138,6 +138,86 @@ const Index = () => {
               </Button>
             </motion.div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Marketing hooks */}
+      <section className="py-12 bg-background border-b border-border">
+        <div className="section-container">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Caja 1 – Mejoramos tu oferta */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0 }}
+              className="relative p-6 rounded-lg border border-primary/20 bg-accent hover:border-primary/40 transition-colors"
+            >
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
+                <TrendingDown className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-heading font-bold mb-2">Mejoramos tu oferta</h3>
+              <p className="text-sm text-foreground font-semibold mb-1">
+                Mejoramos tu precio en el 90% de los casos*
+              </p>
+              <p className="text-sm text-muted-foreground mb-4">
+                Envíanos tu oferta y en pocas horas te confirmamos si podemos mejorarla.
+              </p>
+              <Button asChild variant="default" size="sm">
+                <Link to="/contacto">
+                  Enviar oferta
+                  <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </Button>
+              <p className="text-[10px] text-muted-foreground mt-3 leading-tight">
+                * Comparativa sobre oferta equivalente: misma calidad, medidas y entrega. Datos internos.
+              </p>
+            </motion.div>
+
+            {/* Caja 2 – Stock y Logística */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="p-6 rounded-lg border border-border bg-card hover:border-primary/30 transition-colors"
+            >
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
+                <Package className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-heading font-bold mb-2">Stock permanente y Logística</h3>
+              <p className="text-sm text-muted-foreground mb-1">Entrega inmediata y cobertura nacional</p>
+              <p className="text-sm text-muted-foreground mb-4">Amplio stock disponible en múltiples formatos y calidades</p>
+              <Button asChild variant="outline" size="sm">
+                <Link to="/productos">
+                  Ver productos
+                  <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </Button>
+            </motion.div>
+
+            {/* Caja 3 – Servicios a medida */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="p-6 rounded-lg border border-border bg-card hover:border-primary/30 transition-colors"
+            >
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 mb-4">
+                <Wrench className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-heading font-bold mb-2">Servicios a medida</h3>
+              <p className="text-sm text-muted-foreground mb-1">Corte · Cizalla y plegado · Granallado y pintado</p>
+              <p className="text-sm text-muted-foreground mb-4">Taladro, fresado y marcado · Perfiles abiertos personalizados</p>
+              <Button asChild variant="outline" size="sm">
+                <Link to="/servicios">
+                  Ver servicios
+                  <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </Button>
+            </motion.div>
+          </div>
         </div>
       </section>
 
