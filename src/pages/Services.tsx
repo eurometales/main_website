@@ -147,7 +147,7 @@ const Services = () => {
 
               {/* Detail cards */}
               <div className="ml-0 md:ml-16">
-                <Accordion type="multiple" className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Accordion type="multiple" className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
                   {service.details.map((detail) => (
                     <AccordionItem
                       key={detail.title}

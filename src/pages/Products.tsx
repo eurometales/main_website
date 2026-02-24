@@ -306,7 +306,7 @@ const CategoryBlock = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 items-start">
             {visibleSubs.map((sub) => (
               <SubCategoryCard
                 key={sub.id}
