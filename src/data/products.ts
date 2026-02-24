@@ -259,6 +259,42 @@ export const productSections: ProductSection[] = [
     ],
   },
   {
+    id: "acero-inoxidable",
+    name: "Acero Inoxidable",
+    description:
+      "Acero inoxidable: barra cromada, barra perforada y chapa en distintos acabados y formatos.",
+    imageKey: "img-seccion-acero-inoxidable",
+    categories: [
+      {
+        id: "acero-inox-barra-cromada",
+        name: "Barra Cromada",
+        description: "Precisión con tolerancias ajustadas, mayor dureza superficial y resistencia a la corrosión.",
+        imageKey: "img-cat-barra_cromada",
+        subcategories: [
+          { id: "acero-inox-cromada-inox", name: "Barra cromada inoxidable", description: "AISI 304, 316, 347. Para entornos marinos, alimentarios y petroquímicos. Exterior: 20-100 mm." },
+        ],
+      },
+      {
+        id: "acero-inox-barra-perforada",
+        name: "Barra Perforada",
+        description: "Amplio stock para usos mecánicos. Normas EN 10297, EN 10294 y EN 10210.",
+        imageKey: "img-cat-barra_perforada",
+        subcategories: [
+          { id: "acero-inox-barra-perf-inox", name: "Barra perforada acero inoxidable", description: "Calidades 304L y 316L (también 316Ti y 321Ti). Exterior: 32-250 mm, Interior: 16-200 mm." },
+        ],
+      },
+      {
+        id: "acero-inox-chapa",
+        name: "Acero inoxidable",
+        description: "Aleación con mínimo 10,5% de cromo. Acabados bruto 2B, satinado y pulido con PVC.",
+        imageKey: "img-cat-acero_inoxidable",
+        subcategories: [
+          { id: "acero-inox-chapa-inox", name: "Chapa inoxidable", description: "Formatos 2000×1000 mm y 3000×1500 mm. Espesores de 1 a 3 mm.", extras: "Corte | Cizalla y Plegado" },
+        ],
+      },
+    ],
+  },
+  {
     id: "aceros-especiales",
     name: "Aceros Especiales",
     description:
@@ -318,15 +354,6 @@ export const productSections: ProductSection[] = [
           { id: "cromada-200h", name: "Barra cromada 200H R.9", description: "Acero C45E y 42CrMo4. EN-10277-5 / EN-10083-2. Exterior: 8-200 mm." },
           { id: "cromada-500h", name: "Barra cromada 500H R.10", description: "Resistencia a corrosión 500 horas. C45E y 42CrMo4. Exterior: 20-110 mm." },
           { id: "cromada-inox", name: "Barra cromada inoxidable", description: "AISI 304, 316, 347. Para entornos marinos, alimentarios y petroquímicos. Exterior: 20-100 mm." },
-        ],
-      },
-      {
-        id: "acero-inoxidable",
-        name: "Acero Inoxidable",
-        description: "Aleación con mínimo 10,5% de cromo. Acabados bruto 2B, satinado y pulido con PVC.",
-        imageKey: "img-cat-acero_inoxidable",
-        subcategories: [
-          { id: "chapa-inox", name: "Chapa inoxidable", description: "Formatos 2000×1000 mm y 3000×1500 mm. Espesores de 1 a 3 mm.", extras: "Corte | Cizalla y Plegado" },
         ],
       },
     ],

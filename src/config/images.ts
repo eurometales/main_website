@@ -159,6 +159,9 @@ export const images = {
       "img-sub-soldadura": producto_soldadura,
       "img-sub-otros_productos": producto_otros_productos,
 
+// ///////Productos - Acero Inoxidable ------------------------------------
+"img-seccion-acero-inoxidable": producto_acero_inoxidable,
+
 // ///////Productos - Aceros Especiales ------------------------------------
 "img-seccion-aceros-especiales": producto_aceros_especiales,
 // Productos - Acero al Carbono
