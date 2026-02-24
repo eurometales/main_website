@@ -42,7 +42,6 @@ const Contact = () => {
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
       reason: reason,
-      subject: (form.elements.namedItem("subject") as HTMLInputElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
 
@@ -179,12 +178,6 @@ const Contact = () => {
                       <SelectItem value="Otros">Otros</SelectItem>
                     </SelectContent>
                   </Select>
-                </div>
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-semibold mb-1.5">
-                    Asunto *
-                  </label>
-                  <Input id="subject" name="subject" required placeholder="¿En qué podemos ayudarte?" />
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-semibold mb-1.5">
