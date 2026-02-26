@@ -53,7 +53,10 @@ const OfferModal = ({ open, onOpenChange }: OfferModalProps) => {
     formData.append("reason", "Mejora de oferta");
     formData.append("message", (form.elements.namedItem("message") as HTMLTextAreaElement).value);
     if (file) {
-      formData.append("file", file);
+      const ext = file.name.includes(".") ? file.name.substring(file.name.lastIndexOf(".")) : "";
+      const renamed = new File([file], `mejorame${ext}`, { type: file.type });
+      formData.append("file", renamed);
+      formData.append("originalFileName", file.name);
     }
 
     setLoading(true);
