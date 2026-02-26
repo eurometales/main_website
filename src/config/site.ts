@@ -27,7 +27,7 @@ export const siteConfig = {
   ],
   contact: {
     phones: ["613 003 101", "623 100 665"],
-    email: "contacto@eurometales.com",
+    email: "ventas@eurometales.com",
     address: "Madrid, España",
     companyName: "Eurometales",
   },
