@@ -122,9 +122,9 @@ const Services = () => {
         </div>
       </div>
 
-      {/* Services list */}
+      {/* Services grid */}
       <div className="section-container pb-16">
-        <div className="space-y-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
           {services.map((service, idx) => (
             <motion.section
               key={service.id}
@@ -133,49 +133,42 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.4, delay: idx * 0.05 }}
-              className="scroll-mt-28"
+              className="scroll-mt-28 rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-colors"
             >
               {/* Service header */}
-              <div className="flex items-start gap-4 mb-6">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Wrench className="h-6 w-6 text-primary" />
+              <div className="flex items-start gap-4 mb-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Wrench className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-heading font-black">
+                  <h2 className="text-xl font-heading font-black">
                     <span className="text-gradient">{service.name}</span>
                   </h2>
-                  <p className="text-muted-foreground mt-1 leading-relaxed max-w-3xl">
-                    {service.description}
-                  </p>
                 </div>
               </div>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                {service.description}
+              </p>
 
               {/* Detail cards */}
-              <div className="ml-0 md:ml-16">
-                <Accordion type="multiple" className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-                  {service.details.map((detail) => (
-                    <AccordionItem
-                      key={detail.title}
-                      value={detail.title}
-                      className="rounded-lg border border-border bg-card px-5 hover:border-primary/30 transition-colors"
-                    >
-                      <AccordionTrigger className="text-sm font-heading font-bold hover:no-underline">
-                        {detail.title}
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {detail.description}
-                        </p>
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </div>
-
-              {/* Divider */}
-              {idx < services.length - 1 && (
-                <div className="mt-12 border-t border-border" />
-              )}
+              <Accordion type="multiple" className="space-y-2">
+                {service.details.map((detail) => (
+                  <AccordionItem
+                    key={detail.title}
+                    value={detail.title}
+                    className="rounded-lg border border-border bg-background px-4 hover:border-primary/30 transition-colors"
+                  >
+                    <AccordionTrigger className="text-sm font-heading font-bold hover:no-underline py-3">
+                      {detail.title}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {detail.description}
+                      </p>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </motion.section>
           ))}
         </div>
