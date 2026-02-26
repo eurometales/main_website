@@ -54,7 +54,7 @@ export const productSections: ProductSection[] = [
         subcategories: [
           {
             id: "perfil-estructural",
-            name: "Perfil Estructural",
+            name: "Perfil estructural – Vigas",
             description:
               "Perfiles estructurales o vigas de acero, laminados en caliente y diseñados para la fabricación de estructuras.",
             imageKey: "img-sub-perfil_estructural",
