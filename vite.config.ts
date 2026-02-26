@@ -8,7 +8,15 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const gtmId = env.VITE_GTM_ID ?? "";
 
-  const railwayHost = "https://primary-production-265b.up.railway.app";
+  const contactWebhook =
+    env.RAILWAY_CONTACT_WEBHOOK_URL ??
+    "https://primary-production-265b.up.railway.app/webhook/252fd3f8-e22f-4776-aa83-7927f924cdb0";
+  const offerWebhook =
+    env.RAILWAY_OFFER_WEBHOOK_URL ??
+    "https://primary-production-265b.up.railway.app/webhook/0c187fd8-1c80-4893-9e80-bf819f14cae4";
+
+  const contactTarget = new URL(contactWebhook);
+  const offerTarget = new URL(offerWebhook);
 
   return {
     server: {
@@ -19,16 +27,16 @@ export default defineConfig(({ mode }) => {
       },
       proxy: {
         "/api/contact": {
-          target: railwayHost,
+          target: contactTarget.origin,
           changeOrigin: true,
           secure: true,
-          rewrite: () => "/webhook-test/252fd3f8-e22f-4776-aa83-7927f924cdb0",
+          rewrite: () => contactTarget.pathname,
         },
         "/api/offer": {
-          target: railwayHost,
+          target: offerTarget.origin,
           changeOrigin: true,
           secure: true,
-          rewrite: () => "/webhook-test/0c187fd8-1c80-4893-9e80-bf819f14cae4",
+          rewrite: () => offerTarget.pathname,
         },
       },
     },

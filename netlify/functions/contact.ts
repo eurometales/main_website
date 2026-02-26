@@ -4,8 +4,9 @@ type NetlifyHandler = (event: {
   headers: Record<string, string | undefined>;
 }) => Promise<{ statusCode: number; headers?: Record<string, string>; body: string }>;
 
-const RAILWAY_URL =
-  "https://primary-production-265b.up.railway.app/webhook-test/252fd3f8-e22f-4776-aa83-7927f924cdb0";
+const DEFAULT_CONTACT_WEBHOOK =
+  "https://primary-production-265b.up.railway.app/webhook/252fd3f8-e22f-4776-aa83-7927f924cdb0";
+const RAILWAY_URL = process.env.RAILWAY_CONTACT_WEBHOOK_URL || DEFAULT_CONTACT_WEBHOOK;
 
 export const handler: NetlifyHandler = async (event) => {
   if (event.httpMethod === "OPTIONS") {
