@@ -64,9 +64,12 @@ function getAllResults(): SearchResult[] {
 
 const ALL_RESULTS = getAllResults();
 
-function scrollTo(id: string) {
+function scrollToAndHighlight(id: string) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  el.classList.add("search-highlight");
+  setTimeout(() => el.classList.remove("search-highlight"), 2000);
 }
 
 interface ProductSearchProps {
