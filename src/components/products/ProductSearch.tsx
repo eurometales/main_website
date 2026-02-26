@@ -195,7 +195,7 @@ const ProductSearch = ({ onResultClick }: ProductSearchProps) => {
                 {section.categories.map((cat) => (
                   <button
                     key={cat.id}
-                    onClick={() => { scrollTo(cat.id); onResultClick?.(); }}
+                    onClick={() => { scrollToAndHighlight(cat.id); onResultClick?.(); }}
                     className="w-full text-left px-3 py-1.5 rounded-md text-xs text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                   >
                     {cat.name}
