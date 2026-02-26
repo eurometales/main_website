@@ -93,8 +93,13 @@ const ProductSearch = ({ onResultClick }: ProductSearchProps) => {
   }, [query]);
 
   const handleClick = (result: SearchResult) => {
-    const targetId = result.subId ?? result.categoryId ?? result.sectionId;
-    scrollTo(targetId);
+    if (result.type === "item" && result.subId) {
+      window.dispatchEvent(new CustomEvent("expand-subcategory", { detail: result.subId }));
+      setTimeout(() => scrollToAndHighlight(result.subId!), 150);
+    } else {
+      const targetId = result.subId ?? result.categoryId ?? result.sectionId;
+      scrollToAndHighlight(targetId);
+    }
     onResultClick?.();
   };
 
