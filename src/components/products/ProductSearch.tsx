@@ -186,7 +186,7 @@ const ProductSearch = ({ onResultClick }: ProductSearchProps) => {
           {productSections.map((section) => (
             <div key={section.id}>
               <button
-                onClick={() => { scrollTo(section.id); onResultClick?.(); }}
+                onClick={() => { scrollToAndHighlight(section.id); onResultClick?.(); }}
                 className="w-full text-left px-3 py-2 rounded-md text-sm font-semibold hover:bg-accent hover:text-accent-foreground transition-colors"
               >
                 {section.name}
