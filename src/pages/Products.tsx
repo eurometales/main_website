@@ -341,6 +341,16 @@ const SubCategoryCard = ({
   const [open, setOpen] = useState(false);
   const img = sub.imageKey ? images.products[sub.imageKey] : null;
 
+  // Listen for expand events from search
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail === sub.id) setOpen(true);
+    };
+    window.addEventListener("expand-subcategory", handler);
+    return () => window.removeEventListener("expand-subcategory", handler);
+  }, [sub.id]);
+
   return (
     <div id={sub.id} className="border border-border rounded-md p-4 hover:border-primary/30 transition-colors bg-background scroll-mt-28">
       <div

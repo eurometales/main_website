@@ -64,9 +64,12 @@ function getAllResults(): SearchResult[] {
 
 const ALL_RESULTS = getAllResults();
 
-function scrollTo(id: string) {
+function scrollToAndHighlight(id: string) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  el.classList.add("search-highlight");
+  setTimeout(() => el.classList.remove("search-highlight"), 2000);
 }
 
 interface ProductSearchProps {
@@ -90,8 +93,13 @@ const ProductSearch = ({ onResultClick }: ProductSearchProps) => {
   }, [query]);
 
   const handleClick = (result: SearchResult) => {
-    const targetId = result.subId ?? result.categoryId ?? result.sectionId;
-    scrollTo(targetId);
+    if (result.type === "item" && result.subId) {
+      window.dispatchEvent(new CustomEvent("expand-subcategory", { detail: result.subId }));
+      setTimeout(() => scrollToAndHighlight(result.subId!), 150);
+    } else {
+      const targetId = result.subId ?? result.categoryId ?? result.sectionId;
+      scrollToAndHighlight(targetId);
+    }
     onResultClick?.();
   };
 
@@ -178,7 +186,7 @@ const ProductSearch = ({ onResultClick }: ProductSearchProps) => {
           {productSections.map((section) => (
             <div key={section.id}>
               <button
-                onClick={() => { scrollTo(section.id); onResultClick?.(); }}
+                onClick={() => { scrollToAndHighlight(section.id); onResultClick?.(); }}
                 className="w-full text-left px-3 py-2 rounded-md text-sm font-semibold hover:bg-accent hover:text-accent-foreground transition-colors"
               >
                 {section.name}
@@ -187,7 +195,7 @@ const ProductSearch = ({ onResultClick }: ProductSearchProps) => {
                 {section.categories.map((cat) => (
                   <button
                     key={cat.id}
-                    onClick={() => { scrollTo(cat.id); onResultClick?.(); }}
+                    onClick={() => { scrollToAndHighlight(cat.id); onResultClick?.(); }}
                     className="w-full text-left px-3 py-1.5 rounded-md text-xs text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                   >
                     {cat.name}
