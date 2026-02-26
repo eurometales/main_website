@@ -15,9 +15,14 @@ const Services = () => {
 
   useEffect(() => {
     if (location.hash) {
-      const el = document.getElementById(location.hash.slice(1));
+      const id = location.hash.slice(1);
+      const el = document.getElementById(id);
       if (el) {
-        setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          el.classList.add("search-highlight");
+          setTimeout(() => el.classList.remove("search-highlight"), 2000);
+        }, 100);
       }
     }
   }, [location.hash]);
