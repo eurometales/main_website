@@ -350,7 +350,6 @@ const SubCategoryCard = ({
     window.addEventListener("expand-subcategory", handler);
     return () => window.removeEventListener("expand-subcategory", handler);
   }, [sub.id]);
-  const img = sub.imageKey ? images.products[sub.imageKey] : null;
 
   return (
     <div id={sub.id} className="border border-border rounded-md p-4 hover:border-primary/30 transition-colors bg-background scroll-mt-28">
